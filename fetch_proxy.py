@@ -6,7 +6,7 @@ from colorama import Fore, Style
 SOURCE_URL = "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt"
 OUTPUT_FILE = "local_proxies.txt"
 TEST_URL = "https://httpbin.org/ip"
-TARGET_COUNT = 200
+TARGET_COUNT = 20
 
 def fetch_proxy_list():
     """Mengambil daftar proxy dari URL sumber."""
