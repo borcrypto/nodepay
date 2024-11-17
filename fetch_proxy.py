@@ -1,5 +1,6 @@
 import requests
 import time
+from colorama import Fore, Style
 
 # Konfigurasi
 SOURCE_URL = "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt"
@@ -24,14 +25,10 @@ def test_proxy(proxy):
     try:
         response = requests.get(TEST_URL, proxies=proxies, timeout=5)
         if response.status_code == 200:
-            print(f"Proxy OK: {formatted_proxy}")
             return formatted_proxy
-        else:
-            print(f"Proxy Failed (HTTP Error): {formatted_proxy}")
-            return None
-    except Exception as e:
-        print(f"Proxy Failed: {formatted_proxy} | Error: {e}")
-        return None
+    except Exception:
+        pass
+    return None
 
 def save_to_file(proxies, filename):
     """Menyimpan daftar proxy ke file."""
@@ -55,6 +52,7 @@ def main():
             result = test_proxy(proxy)
             if result:
                 valid_proxies.append(result)
+                print(Fore.GREEN + f"{len(valid_proxies)} / {TARGET_COUNT} Proxy Works, next to another proxy ..." + Style.RESET_ALL)
 
         # Jika belum cukup, tunggu sebelum mencoba lagi
         if len(valid_proxies) < TARGET_COUNT:
@@ -62,7 +60,7 @@ def main():
             time.sleep(10)
 
     save_to_file(valid_proxies, OUTPUT_FILE)
-    print("Proxy fetching and validation completed!")
+    print(Fore.GREEN + "Proxy fetching and validation completed!" + Style.RESET_ALL)
 
 if __name__ == "__main__":
     main()
